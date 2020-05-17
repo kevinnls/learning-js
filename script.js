@@ -14,44 +14,86 @@ function changeFrame() {
     }
 }
 
+function attachClickEvent(){
+    let keyboardList = document.getElementsByClassName('keyboard')
+    for(i=0;i<keyboardList.length;i++){
+        keyboardList[i].addEventListener("click", scream)
+    }
+}
+
 const dictionary = {
     words:['hello','world','goodbye','javaScript'],
     clues:['a salutation','we live in this','said when you take leave','a language for computing']
 }
 const completedIndices = []
 const maxDict = dictionary.words.length
-if(completedIndices.length<=maxDict)
-{
-    let index = Math.floor(Math.random() * maxDict);
-    while(index in completedIndices){
-        index = Math.floor(Math.random() * maxDict);
-    }
-    word = dictionary.words[index]; clue = dictionary.clues[index]
-    completedIndices.push(index)
-    dashes = []
-    wordArray = []
-    console.log("hi")
-    for(i in word){
-        console.log(i)
-        dashes.push("_")
-        wordArray.push(word.toLowerCase().charAt(i))
+function getAWord(){
+    if(completedIndices.length<=maxDict)
+    {
+        let index = Math.floor(Math.random() * maxDict);
+        while(index in completedIndices){
+            index = Math.floor(Math.random() * maxDict);
+        }
+        word = dictionary.words[index].toLowerCase(); clue = dictionary.clues[index]
+        completedIndices.push(index)
+        dashes = []
+        wordArray = []
+        usedLetters = []
+        chances = 6
+        console.log("hi")
+        for(i in word){
+            console.log(i)
+            dashes.push("_")
+            wordArray.push(word.toLowerCase().charAt(i))
+        }
+        document.getElementById('clue').innerHTML = clue
+        printWord()
+    } else {
+        window.alert("You have beaten the game!")
     }
 }
 
-function scream(key){
+
+function printWord(){
+    outWord = ''
+    for(i in dashes) outWord += dashes[i] + " "
+    document.getElementById('word').innerHTML = outWord
+}
+
+function checkLetter(letter){
+    let count = 0
+    if(chances>0){
+    for(i in wordArray){
+        if(wordArray[i] == letter){
+            dashes[i] = letter
+            count++
+        } else continue
+    }
+    if(count>0){
+        printWord()
+    } else {
+        --chances
+        //TODO CHANGE STICK
+        window.alert("Try again, mate. You have " + chances + " left.")
+    }
+} else {
+    window.alert("You have lost. You are out of chances")
+}
+}
+
+usedLetters = []
+function screamer(key){
     keyLetter = String.fromCharCode(key.which).toLowerCase()
+    document.getElementById(keyLetter).disabled = true
     console.log(keyLetter)
-    document.getElementById(keyLetter).disabled=true
+    checkLetter(keyLetter)
+    usedLetters.push(keyLetter)
 }
 function scream(){
-    console.log(this.id)
     this.disabled=true
+    console.log(this.id)
+    checkLetter(this.id)
 }
 
-function attachClickEvent(){
-    let keyboardList = document.getElementsByClassName('keyboard');
-    for(i=0;i<keyboardList.length;i++){
-        keyboardList[i].addEventListener("click", scream);
-    }
-}
 window.onload = attachClickEvent;
+window.onload = getAWord;
