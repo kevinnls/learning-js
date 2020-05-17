@@ -43,3 +43,15 @@ function scream(key){
     console.log(keyLetter)
     document.getElementById(keyLetter).disabled=true
 }
+function scream(){
+    console.log(this.id)
+    this.disabled=true
+}
+
+function attachClickEvent(){
+    let keyboardList = document.getElementsByClassName('keyboard');
+    for(i=0;i<keyboardList.length;i++){
+        keyboardList[i].addEventListener("click", scream);
+    }
+}
+window.onload = attachClickEvent;
