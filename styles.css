@@ -1,6 +1,6 @@
 body,html {
-    margin-left: 12.5%;
-    margin-right: 12.5%;
+    margin-left: 6.25%;
+    margin-right: 6.25%;
     height: 100%;
     overflow: hidden;
 }
@@ -47,7 +47,7 @@ div {
 iframe {
     width: 100%;
     height: inherit;
-    overflow: hidden;
+    overflow: auto;
     border: none;
 }
 :disabled{
