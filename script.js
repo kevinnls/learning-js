@@ -46,6 +46,10 @@ function getAWord(){
             dashes.push("_")
             wordArray.push(word.toLowerCase().charAt(i))
         }
+        let keyboardList = document.getElementsByClassName('keyboard')
+        for(i in keyboardList){
+            keyboardList[i].disabled = false
+        }
         document.getElementById('clue').innerHTML = clue
         printWord()
     } else {
@@ -58,41 +62,63 @@ function printWord(){
     outWord = ''
     for(i in dashes) outWord += dashes[i] + " "
     document.getElementById('word').innerHTML = outWord
+    completionCheck()
 }
 
 function checkLetter(letter){
     let count = 0
     if(chances>0){
-    for(i in wordArray){
-        if(wordArray[i] == letter){
-            dashes[i] = letter
-            count++
-        } else continue
-    }
-    if(count>0){
-        printWord()
+        for(i in wordArray){
+            if(wordArray[i] == letter){
+                dashes[i] = letter
+                count++
+            } else continue
+        }
+        if(count>0){
+            printWord()
+        } else {
+            --chances
+            //TODO CHANGE STICK
+            window.alert("Try again, mate. You have " + chances + " left.")
+        }
     } else {
-        --chances
-        //TODO CHANGE STICK
-        window.alert("Try again, mate. You have " + chances + " left.")
+        window.alert("You have lost. You are out of chances")
     }
-} else {
-    window.alert("You have lost. You are out of chances")
-}
 }
 
-usedLetters = []
 function screamer(key){
     keyLetter = String.fromCharCode(key.which).toLowerCase()
     document.getElementById(keyLetter).disabled = true
     console.log(keyLetter)
-    checkLetter(keyLetter)
-    usedLetters.push(keyLetter)
+    if(keyLetter in usedLetters){
+        window.alert("You've already used " + keyLetter + " try another!")
+    } else {
+        usedLetters.push(keyLetter)
+        completionCheck(keyLetter)
+    }
 }
 function scream(){
     this.disabled=true
     console.log(this.id)
-    checkLetter(this.id)
+    completionCheck(this.id)
+}
+
+function completionCheck(key){
+    if(JSON.stringify(wordArray)!==JSON.stringify(dashes)){
+        if(completionCheck.arguments[0]!=undefined){
+            checkLetter(key)
+        } else return
+
+    } else {
+        playAgain = confirm("You have saved your life! Congrats!\nWould you like to play another word?")
+        if(playAgain == true){
+            getAWord()
+            return false
+        } else {
+            window.alert("Byeee!")
+        }
+
+    }
 }
 
 window.onload = attachClickEvent;
