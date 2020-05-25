@@ -142,7 +142,7 @@ wordObserver = new MutationObserver(function(mutationsList, observer){
 })
 stickObserver = new MutationObserver(function(mutationsList, observer){
     console.log(mutationsList)
-    if(document.getElementById('stickImg').src=="https://kevinnls.github.io/learning-js/stick_assets/006.png")
+    if(document.getElementById('stickImg').src=="https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/006.png")
     {window.alert("You have lost. You are out of chances")
     dashes = wordArray
     document.getElementById('word').style.color="red"
@@ -152,11 +152,11 @@ wordObserver.observe(document.getElementById('word'), {characterData: false, chi
 stickObserver.observe(document.getElementById('stickImg'),{characterData: false, childList: true, attributes: false})
 
 const stick = [
-"stick_assets/000.png",
-"stick_assets/001.png",
-"stick_assets/002.png",
-"stick_assets/003.png",
-"stick_assets/004.png",
-"stick_assets/005.png",
-"stick_assets/006.png"
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/000.png",
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/001.png",
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/002.png",
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/003.png",
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/004.png",
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/005.png",
+"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/006.png",
 ]
