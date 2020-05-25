@@ -61,10 +61,11 @@ function getAWord(){
 }
 
 
-function printWord(){
+async function printWord(){
     outWord = ''
     for(i in dashes) outWord += dashes[i] + " "
     document.getElementById('word').innerHTML = outWord
+    await completionCheck()
 }
 
 function checkLetter(letter){
@@ -92,8 +93,8 @@ function screamer(key){
     keyLetter = String.fromCharCode(key.which).toLowerCase()
     document.getElementById(keyLetter).disabled = true
     console.log(keyLetter)
-    if(keyLetter in usedLetters){
-        window.alert("You've already used " + keyLetter + " try another!")
+    if(usedLetters.some(function(value){return value==keyLetter})){
+        window.alert("You've already used \"" + keyLetter + "\" try another!")
     } else {
         usedLetters.push(keyLetter)
         completionCheck(keyLetter)
