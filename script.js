@@ -43,6 +43,7 @@ function getAWord(){
         wordArray = []
         usedLetters = []
         chances = 6
+        document.getElementById('stick').innerHTML=stick[0]
         console.log("hi")
         for(i in word){
             console.log(i)
@@ -55,6 +56,7 @@ function getAWord(){
         }
         document.getElementById('clue').innerHTML = clue
         printWord()
+        document.getElementById('word').style.color="inherit"
     } else {
         window.alert("You have beaten the game!")
     }
@@ -80,9 +82,15 @@ function checkLetter(letter){
                 printWord()
         } else {
             --chances
-            //TODO CHANGE STICK
+            if(chances>0){
             document.getElementById('stick').innerHTML=stick[6-chances]
             window.alert("Try again, mate. You have " + chances + " left.")
+        }else{
+            window.alert("You have lost. You are out of chances")
+            dashes = wordArray
+            document.getElementById('word').style.color="red"
+            printWord()
+        }
         }
     } else {
         window.alert("You have lost. You are out of chances")
@@ -110,7 +118,10 @@ function completionCheck(){
     if(JSON.stringify(wordArray)!==JSON.stringify(dashes)){
         return
     } else {
+        if(chances!=0)
         playAgain = confirm("You have saved your life! Congrats!\nWould you like to play another word?")
+        else
+        playAgain = confirm("Alas! You have lost your life! \nWould you like to play another word?")
         if(playAgain == true){
             getAWord()
             return false
