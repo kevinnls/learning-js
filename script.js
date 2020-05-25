@@ -149,7 +149,7 @@ stickObserver = new MutationObserver(function(mutationsList, observer){
     printWord()}
 })
 wordObserver.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false})
-stickObserver.observe(document.getElementById('stickImg'),{characterData: false, childList: true, attributes: false})
+stickObserver.observe(document.getElementById('stickImg'),{characterData: false, childList: true, attributes: true})
 
 const stick = [
 "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/000.png",
