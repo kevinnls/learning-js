@@ -45,7 +45,7 @@ function getAWord(){
         wordArray = []
         usedLetters = []
         chances = 6
-        document.getElementById('stick').innerHTML=stick[0]
+        document.getElementById('stickImg').src=stick[0]
         console.log("hi")
         for(i in word){
             console.log(i)
@@ -84,7 +84,7 @@ function checkLetter(letter){
             printWord()
         } else {
             --chances
-            document.getElementById('stick').innerHTML=stick[6-chances]
+            document.getElementById('stickImg').src=stick[6-chances]
             if(chances>0)
                 window.alert("Try again, mate. You have " + chances + " left.")
         }
@@ -142,55 +142,21 @@ wordObserver = new MutationObserver(function(mutationsList, observer){
 })
 stickObserver = new MutationObserver(function(mutationsList, observer){
     console.log(mutationsList)
-    if(document.getElementById('stick').innerHTML=="_____<br>     |  [o]<br>     |   /|\\<br>     |   /ᵔ\\<br>     |<br>    ••••••••••••••")
+    if(document.getElementById('stickImg').src=="https://kevinnls.github.io/learning-js/stick_assets/006.png")
     {window.alert("You have lost. You are out of chances")
     dashes = wordArray
     document.getElementById('word').style.color="red"
     printWord()}
 })
 wordObserver.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false})
-stickObserver.observe(document.getElementById('stick'),{characterData: false, childList: true, attributes: false})
+stickObserver.observe(document.getElementById('stickImg'),{characterData: false, childList: true, attributes: false})
 
 const stick = [
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[ ]<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    ••••••••••••••",
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[o]<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    ••••••••••••••",
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[o]<br>\
-    &emsp;|&emsp;&emsp;|<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    ••••••••••••••",
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[o]<br>\
-    &emsp;|&emsp;&ensp; /|<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    ••••••••••••••",
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[o]<br>\
-    &emsp;|&emsp;&ensp; /|\\<br>\
-    &emsp;|<br>\
-    &emsp;|<br>\
-    ••••••••••••••",
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[o]<br>\
-    &emsp;|&emsp;&ensp; /|\\<br>\
-    &emsp;|&emsp;&ensp; /ᵔ<br>\
-    &emsp;|<br>\
-    ••••••••••••••",
-    "&emsp;_____<br>\
-    &emsp;|&emsp;&ensp;[o]<br>\
-    &emsp;|&emsp;&ensp; /|\\<br>\
-    &emsp;|&emsp;&ensp; /ᵔ\\<br>\
-    &emsp;|<br>\
-    ••••••••••••••"]
+"stick_assets/000.png",
+"stick_assets/001.png",
+"stick_assets/002.png",
+"stick_assets/003.png",
+"stick_assets/004.png",
+"stick_assets/005.png",
+"stick_assets/006.png"
+]
