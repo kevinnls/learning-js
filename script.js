@@ -123,5 +123,7 @@ function completionCheck(key){
     }
 }
 
-window.onload = attachClickEvent;
-window.onload = getAWord;
+window.onload = function(){
+    attachClickEvent();
+    getAWord();
+}
