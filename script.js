@@ -1,4 +1,6 @@
 let playing = false
+let wins=0
+let losses=0
 function changeFrame() {
     if(playing)
     {
@@ -118,10 +120,15 @@ function completionCheck(){
     if(JSON.stringify(wordArray)!==JSON.stringify(dashes)){
         return
     } else {
-        if(chances!=0)
+        if(chances!=0){
         playAgain = confirm("You have saved your life! Congrats!\nWould you like to play another word?")
-        else
+        wins++
+        document.getElementById('win_counter').innerHTML=wins
+    }else{
         playAgain = confirm("Alas! You have lost your life! \nWould you like to play another word?")
+        losses++
+        document.getElementById('loss_counter').innerHTML=losses
+    }
         if(playAgain == true){
             getAWord()
             return false
