@@ -32,12 +32,12 @@ const maxDict = dictionary.words.length
 function getAWord(){
     if(completedIndices.length<=maxDict)
     {
-         while(completedIndices.some(function(value){
-             return value==getAWord.index || getAWord.index==undefined
-         })){
-             getAWord.index = Math.floor(Math.random() * maxDict);
-             console.log("index is: " + getAWord.index)
-         };
+        while(completedIndices.some(function(value){
+            return value==getAWord.index || getAWord.index==undefined
+        })){
+            getAWord.index = Math.floor(Math.random() * maxDict);
+            console.log("index is: " + getAWord.index)
+        };
 
         word = dictionary.words[getAWord.index].toLowerCase(); clue = dictionary.clues[getAWord.index]
         completedIndices.push(getAWord.index)
@@ -81,18 +81,12 @@ function checkLetter(letter){
             } else continue
         }
         if(count>0){
-                printWord()
+            printWord()
         } else {
             --chances
-            if(chances>0){
             document.getElementById('stick').innerHTML=stick[6-chances]
-            window.alert("Try again, mate. You have " + chances + " left.")
-        }else{
-            window.alert("You have lost. You are out of chances")
-            dashes = wordArray
-            document.getElementById('word').style.color="red"
-            printWord()
-        }
+            if(chances>0)
+                window.alert("Try again, mate. You have " + chances + " left.")
         }
     } else {
         window.alert("You have lost. You are out of chances")
@@ -121,14 +115,14 @@ function completionCheck(){
         return
     } else {
         if(chances!=0){
-        playAgain = confirm("You have saved your life! Congrats!\nWould you like to play another word?")
-        wins++
-        document.getElementById('win_counter').innerHTML=wins
-    }else{
-        playAgain = confirm("Alas! You have lost your life! \nWould you like to play another word?")
-        losses++
-        document.getElementById('loss_counter').innerHTML=losses
-    }
+            playAgain = confirm("You have saved your life! Congrats!\nWould you like to play another word?")
+            wins++
+            document.getElementById('win_counter').innerHTML=wins
+        }else{
+            playAgain = confirm("Alas! You have lost your life! \nWould you like to play another word?")
+            losses++
+            document.getElementById('loss_counter').innerHTML=losses
+        }
         if(playAgain == true){
             getAWord()
             return false
@@ -143,52 +137,60 @@ window.onload = function(){
     attachClickEvent();
     getAWord();
 }
-observer = new MutationObserver(function(mutationsList, observer) {
-    console.log(mutationsList)
+wordObserver = new MutationObserver(function(mutationsList, observer){
     setTimeout(function(){completionCheck()}, 500);
 })
-observer.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false});
+stickObserver = new MutationObserver(function(mutationsList, observer){
+    console.log(mutationsList)
+    if(document.getElementById('stick').innerHTML=="_____<br>     |  [o]<br>     |   /|\\<br>     |   /ᵔ\\<br>     |<br>    ••••••••••••••")
+    {window.alert("You have lost. You are out of chances")
+    dashes = wordArray
+    document.getElementById('word').style.color="red"
+    printWord()}
+})
+wordObserver.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false})
+stickObserver.observe(document.getElementById('stick'),{characterData: false, childList: true, attributes: false})
 
 const stick = [
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[ ]<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-••••••••••••••",
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[o]<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-••••••••••••••",
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[o]<br>\
-&emsp;|&emsp;&emsp;|<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-••••••••••••••",
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[o]<br>\
-&emsp;|&emsp;&ensp; /|<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-••••••••••••••",
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[o]<br>\
-&emsp;|&emsp;&ensp; /|\\<br>\
-&emsp;|<br>\
-&emsp;|<br>\
-••••••••••••••",
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[o]<br>\
-&emsp;|&emsp;&ensp; /|\\<br>\
-&emsp;|&emsp;&ensp; /ᵔ<br>\
-&emsp;|<br>\
-••••••••••••••",
-"&emsp;_____<br>\
-&emsp;|&emsp;&ensp;[o]<br>\
-&emsp;|&emsp;&ensp; /|\\<br>\
-&emsp;|&emsp;&ensp; /ᵔ\\<br>\
-&emsp;|<br>\
-••••••••••••••"]
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[ ]<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    ••••••••••••••",
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[o]<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    ••••••••••••••",
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[o]<br>\
+    &emsp;|&emsp;&emsp;|<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    ••••••••••••••",
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[o]<br>\
+    &emsp;|&emsp;&ensp; /|<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    ••••••••••••••",
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[o]<br>\
+    &emsp;|&emsp;&ensp; /|\\<br>\
+    &emsp;|<br>\
+    &emsp;|<br>\
+    ••••••••••••••",
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[o]<br>\
+    &emsp;|&emsp;&ensp; /|\\<br>\
+    &emsp;|&emsp;&ensp; /ᵔ<br>\
+    &emsp;|<br>\
+    ••••••••••••••",
+    "&emsp;_____<br>\
+    &emsp;|&emsp;&ensp;[o]<br>\
+    &emsp;|&emsp;&ensp; /|\\<br>\
+    &emsp;|&emsp;&ensp; /ᵔ\\<br>\
+    &emsp;|<br>\
+    ••••••••••••••"]
