@@ -65,7 +65,6 @@ async function printWord(){
     outWord = ''
     for(i in dashes) outWord += dashes[i] + " "
     document.getElementById('word').innerHTML = outWord
-    await completionCheck()
 }
 
 function checkLetter(letter){
@@ -78,7 +77,7 @@ function checkLetter(letter){
             } else continue
         }
         if(count>0){
-            printWord()
+                printWord()
         } else {
             --chances
             //TODO CHANGE STICK
@@ -97,21 +96,18 @@ function screamer(key){
         window.alert("You've already used \"" + keyLetter + "\" try another!")
     } else {
         usedLetters.push(keyLetter)
-        completionCheck(keyLetter)
+        checkLetter(keyLetter)
     }
 }
 function scream(){
     this.disabled=true
     console.log(this.id)
-    completionCheck(this.id)
+    checkLetter(this.id)
 }
 
-function completionCheck(key){
+function completionCheck(){
     if(JSON.stringify(wordArray)!==JSON.stringify(dashes)){
-        if(completionCheck.arguments.length === 1){
-            checkLetter(key)
-        } else return
-
+        return
     } else {
         playAgain = confirm("You have saved your life! Congrats!\nWould you like to play another word?")
         if(playAgain == true){
@@ -128,3 +124,8 @@ window.onload = function(){
     attachClickEvent();
     getAWord();
 }
+observer = new MutationObserver(function(mutationsList, observer) {
+    console.log(mutationsList)
+    setTimeout(function(){completionCheck()}, 500);
+})
+observer.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false});
