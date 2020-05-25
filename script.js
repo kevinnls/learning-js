@@ -81,6 +81,7 @@ function checkLetter(letter){
         } else {
             --chances
             //TODO CHANGE STICK
+            document.getElementById('stick').innerHTML=stick[6-chances]
             window.alert("Try again, mate. You have " + chances + " left.")
         }
     } else {
@@ -129,3 +130,47 @@ observer = new MutationObserver(function(mutationsList, observer) {
     setTimeout(function(){completionCheck()}, 500);
 })
 observer.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false});
+
+const stick = [
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[ ]<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+••••••••••••••",
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[o]<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+••••••••••••••",
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[o]<br>\
+&emsp;|&emsp;&emsp;|<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+••••••••••••••",
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[o]<br>\
+&emsp;|&emsp;&ensp; /|<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+••••••••••••••",
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[o]<br>\
+&emsp;|&emsp;&ensp; /|\\<br>\
+&emsp;|<br>\
+&emsp;|<br>\
+••••••••••••••",
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[o]<br>\
+&emsp;|&emsp;&ensp; /|\\<br>\
+&emsp;|&emsp;&ensp; /ᵔ<br>\
+&emsp;|<br>\
+••••••••••••••",
+"&emsp;_____<br>\
+&emsp;|&emsp;&ensp;[o]<br>\
+&emsp;|&emsp;&ensp; /|\\<br>\
+&emsp;|&emsp;&ensp; /ᵔ\\<br>\
+&emsp;|<br>\
+••••••••••••••"]
