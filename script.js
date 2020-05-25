@@ -25,17 +25,20 @@ const dictionary = {
     words:['hello','world','goodbye','javaScript'],
     clues:['a salutation','we live in this','said when you take leave','a language for computing']
 }
-const completedIndices = []
+let completedIndices = [undefined]
 const maxDict = dictionary.words.length
 function getAWord(){
     if(completedIndices.length<=maxDict)
     {
-        let index = Math.floor(Math.random() * maxDict);
-        while(index in completedIndices){
-            index = Math.floor(Math.random() * maxDict);
-        }
-        word = dictionary.words[index].toLowerCase(); clue = dictionary.clues[index]
-        completedIndices.push(index)
+         while(completedIndices.some(function(value){
+             return value==getAWord.index || getAWord.index==undefined
+         })){
+             getAWord.index = Math.floor(Math.random() * maxDict);
+             console.log("index is: " + getAWord.index)
+         };
+
+        word = dictionary.words[getAWord.index].toLowerCase(); clue = dictionary.clues[getAWord.index]
+        completedIndices.push(getAWord.index)
         dashes = []
         wordArray = []
         usedLetters = []
@@ -62,7 +65,6 @@ function printWord(){
     outWord = ''
     for(i in dashes) outWord += dashes[i] + " "
     document.getElementById('word').innerHTML = outWord
-    completionCheck()
 }
 
 function checkLetter(letter){
@@ -105,7 +107,7 @@ function scream(){
 
 function completionCheck(key){
     if(JSON.stringify(wordArray)!==JSON.stringify(dashes)){
-        if(completionCheck.arguments[0]!=undefined){
+        if(completionCheck.arguments.length === 1){
             checkLetter(key)
         } else return
 
