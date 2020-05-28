@@ -1,3 +1,7 @@
+window.onload = function(){
+    attachClickEvent()
+    getAWord()
+}
 let playing = false
 let wins=0
 let losses=0
@@ -32,12 +36,10 @@ const maxDict = dictionary.words.length
 function getAWord(){
     if(completedIndices.length<=maxDict)
     {
-        while(completedIndices.some(function(value){
-            return value==getAWord.index || getAWord.index==undefined
-        })){
+        //completedIndices.indexOf(getAWord.index)==-1 ||
+        do {
             getAWord.index = Math.floor(Math.random() * maxDict);
-            console.log("index is: " + getAWord.index)
-        };
+        }while(completedIndices.indexOf(getAWord.index)!=-1)
 
         word = dictionary.words[getAWord.index].toLowerCase(); clue = dictionary.clues[getAWord.index]
         completedIndices.push(getAWord.index)
@@ -85,11 +87,9 @@ function checkLetter(letter){
         } else {
             --chances
             document.getElementById('stickImg').src=stick[6-chances]
-            if(chances>0)
-                window.alert("Try again, mate. You have " + chances + " left.")
         }
     } else {
-        window.alert("You have lost. You are out of chances")
+        //window.alert("You have lost. You are out of chances")
     }
 }
 
@@ -133,30 +133,32 @@ function completionCheck(){
     }
 }
 
-window.onload = function(){
-    attachClickEvent();
-    getAWord();
-}
 wordObserver = new MutationObserver(function(mutationsList, observer){
-    setTimeout(function(){completionCheck()}, 500);
+    setTimeout(completionCheck(), 7000)
 })
 stickObserver = new MutationObserver(function(mutationsList, observer){
-    console.log(mutationsList)
-    if(document.getElementById('stickImg').src=="https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/006.png")
-    {window.alert("You have lost. You are out of chances")
-    dashes = wordArray
-    document.getElementById('word').style.color="red"
-    printWord()}
+    setTimeout(function(){
+        if(chances==6){
+            return
+        }else if(chances>0){
+            return //window.alert("Try again, mate. You have " + chances + " chances left.")
+        }else{
+            //window.alert("You have lost. You are out of chances")
+            console.log("else")
+            dashes = wordArray
+            printWord()
+            document.getElementById('word').style.color="red"
+        }}, 200)
 })
 wordObserver.observe(document.getElementById('word'), {characterData: false, childList: true, attributes: false})
 stickObserver.observe(document.getElementById('stickImg'),{characterData: false, childList: true, attributes: true})
 
 const stick = [
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/000.png",
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/001.png",
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/002.png",
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/003.png",
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/004.png",
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/005.png",
-"https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/006.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/000.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/001.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/002.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/003.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/004.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/005.png",
+    "https://raw.githubusercontent.com/kevinnls/learning-js/master/stick_assets/006.png",
 ]
